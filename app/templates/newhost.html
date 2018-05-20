@@ -6,6 +6,12 @@
         {{ form.hidden_tag() }}
         <div class="input-group mb-3">
             <div class="input-group-prepend">
+                <span class="input-group-text input-group-addon" id="basic-addon1">{{ form.org_id.label }}</span>
+            </div>
+            {{ form.org_id(class="form-control", placeholder="Organization") }}
+        </div>
+        <div class="input-group mb-3">
+            <div class="input-group-prepend">
                 <span class="input-group-text input-group-addon" id="basic-addon1">{{ form.host.label }}</span>
             </div>
             {{ form.host(class="form-control", placeholder="Name used when connecting to host") }}
@@ -35,7 +41,7 @@
             {{ form.port(class="form-control") }}
         </div>
         <p>{{ form.submit(class="btn btn-primary") }}
-            <a class="btn btn-default" href="#Cancel">Cancel</a>
+            <a class="btn btn-default" href="{{ url_for('hosts') }}">Cancel</a>
         </p>
     </form>
 {% endblock %}

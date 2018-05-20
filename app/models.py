@@ -8,6 +8,7 @@ from flask_login import UserMixin
 def load_user(id):
     return User.query.get(int(id))
 
+
 class User(UserMixin, db.Model):
     id = db.Column(db.Integer, primary_key=True)
     username = db.Column(db.String(64), index=True, unique=True)
@@ -40,7 +41,7 @@ class Host(db.Model):
     localforwards = db.relationship('HostLocalForward', backref='localforwards', lazy='dynamic')
 
     def __repr__(self):
-        return '<User {}>'.format(self.hostname)
+        return '<Host {}>'.format(self.host)
 
 
 class HostLocalForward(db.Model):
@@ -52,7 +53,7 @@ class HostLocalForward(db.Model):
     remote_port = db.Column(db.Integer)
 
     def __repr__(self):
-        return '<User {}>'.format(self.name)
+        return '<HostLF {}>'.format(self.name)
 
 
 class Organization(db.Model):
@@ -64,4 +65,4 @@ class Organization(db.Model):
     added = db.Column(db.DateTime, index=True, default=datetime.utcnow)
 
     def __repr__(self):
-        return '<User {}>'.format(self.orgname)
+        return '<Org {}>'.format(self.orgname)

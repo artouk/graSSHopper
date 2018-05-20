@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <h3>New Organization</h3>
+    <form action="" method="post">
+        {{ form.hidden_tag() }}
+        <div class="input-group mb-3">
+            <div class="input-group-prepend">
+                <span class="input-group-text input-group-addon" id="orgname-addon1">{{ form.orgname.label }}</span>
+            </div>
+            {{ form.orgname(class="form-control", placeholder="Organization Name") }}
+        </div>
+        <div class="input-group mb-3">
+            <div class="input-group-prepend">
+                <span class="input-group-text input-group-addon" id="description-addon2">{{ form.description.label }}</span>
+            </div>
+            {{ form.description(class="form-control", placeholder="Description of Organization") }}
+        </div>
+        <p>{{ form.submit(class="btn btn-primary") }}
+            <a class="btn btn-default" href="{{ url_for('organizations') }}">Cancel</a>
+        </p>
+    </form>
+{% endblock %}
