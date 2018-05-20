@@ -4,15 +4,19 @@
     <h3>Sign In</h3>
     <form action="" method="post">
         {{ form.hidden_tag() }}
-        <p>
-            {{ form.username.label }}<br>
-            {{ form.username(size=32) }}
-        </p>
-        <p>
-            {{ form.password.label }}<br>
-            {{ form.password(size=32) }}
-        </p>
+        <div class="input-group mb-3">
+            <div class="input-group-prepend">
+                <span class="input-group-text input-group-addon" id="basic-addon1">{{ form.username.label }}</span>
+                {{ form.username(class="form-control") }}
+            </div>
+        </div>
+        <div class="input-group mb-3">
+            <div class="input-group-prepend">
+                <span class="input-group-text input-group-addon" id="basic-addon1">{{ form.password.label }}</span>
+                {{ form.password(class="form-control") }}
+            </div>
+        </div>
         <p>{{ form.remember_me() }} {{ form.remember_me.label }}</p>
-        <p>{{ form.submit() }}</p>
+        <p>{{ form.submit(class="btn btn-primary") }}</p>
     </form>
 {% endblock %}

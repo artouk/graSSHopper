@@ -1,0 +1,41 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <h3>New Host</h3>
+    <form action="" method="post">
+        {{ form.hidden_tag() }}
+        <div class="input-group mb-3">
+            <div class="input-group-prepend">
+                <span class="input-group-text input-group-addon" id="basic-addon1">{{ form.host.label }}</span>
+            </div>
+            {{ form.host(class="form-control", placeholder="Name used when connecting to host") }}
+        </div>
+        <div class="input-group mb-3">
+            <div class="input-group-prepend">
+                <span class="input-group-text input-group-addon" id="basic-addon1">{{ form.address.label }}</span>
+            </div>
+            {{ form.address(class="form-control", placeholder="Domain / IP Address of the host") }}
+        </div>
+        <div class="input-group mb-3">
+            <div class="input-group-prepend">
+                <span class="input-group-text input-group-addon" id="basic-addon1">{{ form.description.label }}</span>
+            </div>
+            {{ form.description(class="form-control", placeholder="Description of the host's purpose") }}
+        </div>
+        <div class="input-group mb-3">
+            <div class="input-group-prepend">
+                <span class="input-group-text input-group-addon" id="basic-addon1">{{ form.sysuser.label }}</span>
+            </div>
+            {{ form.sysuser(class="form-control", placeholder="User you connect to the host as. Leave blank to use your default") }}
+        </div>
+        <div class="input-group mb-3">
+            <div class="input-group-prepend">
+                <span class="input-group-text input-group-addon" id="basic-addon1">{{ form.port.label }}</span>
+            </div>
+            {{ form.port(class="form-control") }}
+        </div>
+        <p>{{ form.submit(class="btn btn-primary") }}
+            <a class="btn btn-default" href="#Cancel">Cancel</a>
+        </p>
+    </form>
+{% endblock %}
