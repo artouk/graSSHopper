@@ -1,24 +1,15 @@
 from flask import render_template, redirect, url_for
 from app import app, db
-from app.forms import LoginForm, NewHost, NewOrganization
+from app.forms import LoginForm, SignUpForm, NewHost, NewOrganization
 from flask_login import current_user, login_user, logout_user, login_required
 from app.models import User, Host, Organization
+
 
 @app.route('/')
 @app.route('/index')
 @login_required
 def index():
-    posts = [
-        {
-            'author': {'username': 'John'},
-            'body': 'Beautiful day in Portland!'
-        },
-        {
-            'author': {'username': 'Susan'},
-            'body': 'The Avengers movie was so cool!'
-        }
-    ]
-    return render_template('index.html', title='Home', user=current_user, posts=posts)
+    return render_template('index.html', title='Home', user=current_user)
 
 
 @app.route('/login', methods=['GET', 'POST'])
@@ -89,3 +80,25 @@ def new_organization():
 def organizations():
     orglist = Organization.query.all()
     return render_template('organizations.html', title='Organizations', orgs=orglist)
+
+
+@app.route('/signup', methods=['GET', 'POST'])
+def signup():
+    if current_user.is_authenticated:
+        return redirect(url_for('index'))
+    form = SignUpForm()
+    if form.validate_on_submit():
+        user = User(username=form.username.data,
+                    firstname=form.firstname.data,
+                    lastname=form.lastname.data,
+                    email=form.email.data)
+        user.set_password(form.password.data)
+        db.session.add(user)
+        db.session.commit()
+        return redirect(url_for('signup_success'))
+    return render_template('signup.html', title='Sign In', form=form)
+
+
+@app.route('/signup/success', methods=['GET', 'POST'])
+def signup_success():
+    return render_template('signup_success.html')

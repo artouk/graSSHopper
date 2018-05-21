@@ -21,7 +21,7 @@
       <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbar2SupportedContent" aria-controls="navbar2SupportedContent" aria-expanded="false" aria-label="Toggle navigation"> <span class="navbar-toggler-icon"></span> </button>
       <div class="collapse navbar-collapse text-center justify-content-end" id="navbar2SupportedContent">
           {% if current_user.is_anonymous %}
-          <a class="btn navbar-btn text-white mx-2 btn-primary" href="#signup"><i class="fa fa-user"></i> Sign Up</a>
+          <a class="btn navbar-btn text-white mx-2 btn-primary" href="{{ url_for('signup') }}"><i class="fa fa-user"></i> Sign Up</a>
           {% else %}
         <ul class="navbar-nav">
           <li class="nav-item mx-1">
