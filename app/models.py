@@ -19,6 +19,7 @@ class User(UserMixin, db.Model):
     added = db.Column(db.DateTime, index=True, default=datetime.utcnow)
     hosts = db.relationship('Host', backref='hostcreator', lazy='dynamic')
     orgs = db.relationship('Organization', backref='orgcreator', lazy='dynamic')
+    settings = db.relationship('UserSettings', backref='user', lazy='dynamic')
 
     def __repr__(self):
         return '<User {}>'.format(self.username)
@@ -28,6 +29,14 @@ class User(UserMixin, db.Model):
 
     def check_password(self, password):
         return check_password_hash(self.password_hash, password)
+
+
+class UserSettings(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
+    default_sys_username = db.Column(db.String(64))
+    force_proxy = db.Column(db.Boolean, default=False)
+    proxy_host = db.Column(db.Integer, db.ForeignKey('host.id'))
 
 
 class Host(db.Model):

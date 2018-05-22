@@ -11,7 +11,7 @@ class LoginForm(FlaskForm):
     submit = SubmitField('Sign In')
 
 
-class NewHost(FlaskForm):
+class NewHostForm(FlaskForm):
     org_id = SelectField('Organization', choices=[], coerce=int)
     host = StringField('Host', validators=[DataRequired()])
     address = StringField('Address', validators=[DataRequired()])
@@ -21,7 +21,7 @@ class NewHost(FlaskForm):
     submit = SubmitField('Save')
 
 
-class NewOrganization(FlaskForm):
+class NewOrganizationForm(FlaskForm):
     orgname = StringField('Name', validators=[DataRequired()])
     description = StringField('Description', validators=[DataRequired()])
     submit = SubmitField('Save')

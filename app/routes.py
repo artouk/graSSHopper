@@ -1,6 +1,6 @@
 from flask import render_template, redirect, url_for
 from app import app, db
-from app.forms import LoginForm, SignUpForm, NewHost, NewOrganization
+from app.forms import LoginForm, SignUpForm, NewHostForm, NewOrganizationForm
 from flask_login import current_user, login_user, logout_user, login_required
 from app.models import User, Host, Organization
 
@@ -37,7 +37,7 @@ def logout():
 @login_required
 def new_host():
     orgs = [(o.id, o.orgname) for o in Organization.query.order_by('orgname')]
-    form = NewHost()
+    form = NewHostForm()
     form.org_id.choices = orgs
     if form.validate_on_submit():
         o = Organization.query.get(form.org_id.data)
@@ -64,7 +64,7 @@ def hosts():
 @app.route('/organizations/new', methods=['GET', 'POST'])
 @login_required
 def new_organization():
-    form = NewOrganization()
+    form = NewOrganizationForm()
     if form.validate_on_submit():
         o = Organization(creator_id=current_user.id,
                  orgname=form.orgname.data,
@@ -80,6 +80,13 @@ def new_organization():
 def organizations():
     orglist = Organization.query.all()
     return render_template('organizations.html', title='Organizations', orgs=orglist)
+
+
+@app.route('/settings', methods=['GET', 'POST'])
+@login_required
+def settings():
+    hostlist = Host.query.all()
+    return
 
 
 @app.route('/signup', methods=['GET', 'POST'])
