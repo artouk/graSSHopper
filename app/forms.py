@@ -1,5 +1,6 @@
 from flask_wtf import FlaskForm
-from wtforms import StringField, PasswordField, BooleanField, SubmitField, TextAreaField, IntegerField, SelectField
+from wtforms import StringField, PasswordField, BooleanField, SubmitField, TextAreaField, IntegerField, SelectField, \
+    ValidationError
 from wtforms.validators import DataRequired, EqualTo
 from app.models import User
 
@@ -32,7 +33,8 @@ class SignUpForm(FlaskForm):
     email = StringField('Email', validators=[DataRequired()])
     firstname = StringField('Firstname', validators=[DataRequired()])
     lastname = StringField('Lastname', validators=[DataRequired()])
-    password = PasswordField('Password', validators=[DataRequired(),EqualTo('confirm', message='Passwords must match')])
+    password = PasswordField('Password',
+                             validators=[DataRequired(), EqualTo('confirm', message='Passwords must match')])
     confirm = PasswordField('Confirm', validators=[DataRequired()])
     submit = SubmitField('Register')
 
@@ -45,3 +47,10 @@ class SignUpForm(FlaskForm):
         user = User.query.filter_by(email=email.data).first()
         if user is not None:
             raise ValidationError('Please use a different email address.')
+
+
+class UserSettingsForm(FlaskForm):
+    default_sys_username = StringField('Default System User')
+    force_proxy = SelectField('Force Proxy', choices=[(1, 'True'), (0, 'False')], default=0, coerce=int)
+    proxy_host = SelectField('Proxy Host', coerce=int)
+    submit = SubmitField('Save')

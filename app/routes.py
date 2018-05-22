@@ -1,8 +1,8 @@
 from flask import render_template, redirect, url_for
 from app import app, db
-from app.forms import LoginForm, SignUpForm, NewHostForm, NewOrganizationForm
+from app.forms import LoginForm, SignUpForm, NewHostForm, NewOrganizationForm, UserSettingsForm
 from flask_login import current_user, login_user, logout_user, login_required
-from app.models import User, Host, Organization
+from app.models import User, Host, Organization, UserSettings
 
 
 @app.route('/')
@@ -85,8 +85,11 @@ def organizations():
 @app.route('/settings', methods=['GET', 'POST'])
 @login_required
 def settings():
-    hostlist = Host.query.all()
-    return
+    user_settings = UserSettings.query.filter(UserSettings.user_id == current_user.id).first()
+    proxy_hosts = [(h.id, h.host) for h in Host.query.order_by('host')]
+    form = UserSettingsForm()
+    form.proxy_host.choices = proxy_hosts
+    return render_template('settings.html', title='User Settings', form=form)
 
 
 @app.route('/signup', methods=['GET', 'POST'])
@@ -101,6 +104,10 @@ def signup():
                     email=form.email.data)
         user.set_password(form.password.data)
         db.session.add(user)
+        db.session.commit()
+        user = User.query.filter(User.username == form.username.data).first()
+        user_settings = UserSettings(user=user)
+        db.session.add(user_settings)
         db.session.commit()
         return redirect(url_for('signup_success'))
     return render_template('signup.html', title='Sign In', form=form)

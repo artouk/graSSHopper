@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <h3>{{ title }}</h3>
+    <form action="" method="post">
+        {{ form.hidden_tag() }}
+        <div class="input-group mb-3">
+            <div class="input-group-prepend">
+                <span class="input-group-text input-group-addon" id="user-addon1">{{ form.default_sys_username.label }}</span>
+            </div>
+            {{ form.default_sys_username(class="form-control", placeholder="Default system user") }}
+        </div>
+        <div class="input-group mb-3">
+            <div class="input-group-prepend">
+                <span class="input-group-text input-group-addon" id="force-addon2">{{ form.force_proxy.label }}</span>
+            </div>
+            {{ form.force_proxy(class="form-control") }}
+        </div>
+        <div class="input-group mb-3">
+            <div class="input-group-prepend">
+                <span class="input-group-text input-group-addon" id="proxy-host-addon2">{{ form.proxy_host.label }}</span>
+            </div>
+            {{ form.proxy_host(class="form-control") }}
+        </div>
+        <p>{{ form.submit(class="btn btn-primary") }}
+            <a class="btn btn-default" href="{{ url_for('index') }}">Cancel</a>
+        </p>
+    </form>
+{% endblock %}
