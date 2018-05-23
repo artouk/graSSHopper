@@ -1,0 +1,14 @@
+{% block content %}
+{% for host in hosts %}
+#▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄<br>
+#▌ Host        : {{ host.host }}<br>
+#▌ Description : {{ host.description }}<br>
+#▌ Created By  : {{ host.hostcreator.firstname }} {{ host.hostcreator.lastname }} <br>
+#▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀<br>
+Host {{ host.host }}<br>
+Hostname {{ host.address }}<br>
+User {{ host.sysuser }}<br>
+Port {{ host.port }}<br>
+<br>
+{% endfor %}
+{% endblock %}

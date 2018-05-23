@@ -51,6 +51,6 @@ class SignUpForm(FlaskForm):
 
 class UserSettingsForm(FlaskForm):
     default_sys_username = StringField('Default System User')
-    force_proxy = SelectField('Force Proxy', choices=[(1, 'True'), (0, 'False')], default=0, coerce=int)
+    force_proxy = SelectField('Force Proxy', choices=[(1, 'True'), (0, 'False')], coerce=int)
     proxy_host = SelectField('Proxy Host', coerce=int)
     submit = SubmitField('Save')
